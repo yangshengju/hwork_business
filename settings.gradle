@@ -1,0 +1,4 @@
+rootProject.name='hwork_business'
+include ':app'
+include ':lib_audio'
+include ':lib_video'
