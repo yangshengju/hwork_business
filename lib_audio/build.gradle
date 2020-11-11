@@ -5,14 +5,15 @@ def pomName = this.getName()
 def pomVersion = '1.0.0-SNAPSHOT'
 def pomDescription = 'The audio library for all projects'
 android {
-    compileSdkVersion 28
+    compileSdkVersion this.rootProject.android.compileSdkVersion
 //    buildToolsVersion "29.0.3"
 
     defaultConfig {
-        minSdkVersion 24
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.android.minSdkVersion
+        targetSdkVersion rootProject.android.targetSdkVersion
+        versionCode rootProject.android.versionCode
+        versionName rootProject.android.versionName
+        multiDexEnabled rootProject.android.multiDexEnabled
 
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -33,7 +34,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation rootProject.depLibs.appcompat
 //    implementation 'androidx.appcompat:appcompat:1.2.0'
     testImplementation 'junit:junit:4.12'
 //    androidTestImplementation 'androidx.test.ext:junit:1.1.2'

@@ -5,8 +5,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.hwork_business.model.CHANNEL;
+import com.example.hwork_business.view.discovery.DiscoveryFragment;
+import com.example.hwork_business.view.friend.FriendFragment;
 import com.example.hwork_business.view.mine.MineFragment;
 
+/**
+ * 首页ViewPager的adapter
+ */
 public class HomePagerAdapter extends FragmentPagerAdapter {
     private CHANNEL[] mList = null;
 
@@ -25,13 +30,17 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
         int type = mList[i].getValue();
         switch (type) {
             case CHANNEL.MINE_ID:
-                return MineFragment.;
+                return MineFragment.newInstance();
+                case CHANNEL.DISCORY_ID:
+                    return DiscoveryFragment.newInstance();
+                    case CHANNEL.FRIEND_ID:
+                        return FriendFragment.newInstance();
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return mList==null?0:mList.length;
     }
 }

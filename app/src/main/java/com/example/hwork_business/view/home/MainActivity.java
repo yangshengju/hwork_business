@@ -11,6 +11,8 @@ import android.view.View;
 
 import com.example.hwork_business.R;
 import com.example.hwork_business.model.CHANNEL;
+import com.example.hwork_business.view.home.adapter.HomePagerAdapter;
+import com.example.lib_common_ui.base.BaseActivity;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -22,7 +24,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.Li
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
 
     private static final CHANNEL[] CHANNELS = new CHANNEL[]{
         CHANNEL.MINE,CHANNEL.DISCORY,CHANNEL.FRIEND
@@ -32,7 +34,7 @@ public class MainActivity extends FragmentActivity {
     private View mToggleView;
     private View mSearchView;
     private ViewPager mViewPager;
-    private HomePageAdapter
+    private HomePagerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,8 @@ public class MainActivity extends FragmentActivity {
         mToggleView = findViewById(R.id.toggle_view);
         mSearchView = findViewById(R.id.search_view);
         mViewPager = findViewById(R.id.view_pager);
-
+        mAdapter = new HomePagerAdapter(getSupportFragmentManager(),CHANNELS);
+        mViewPager.setAdapter(mAdapter);
         /**
          * 初始化ViewPager指示器
          */
