@@ -1,13 +1,16 @@
 package com.example.lib_network.okhttp;
 
 import com.example.lib_network.okhttp.cookie.SimpleCookieJar;
+import com.example.lib_network.okhttp.https.HttpsUtils;
+import com.example.lib_network.okhttp.listener.DisposeDataHandler;
+import com.example.lib_network.okhttp.response.CommonJsonCallback;
 
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
 
-import okhttp3.Interceptor;
+import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -37,6 +40,17 @@ public class CommonOkHttpClient {
         okHttpClientBuilder.readTimeout(TIME_OUT, TimeUnit.SECONDS);
         okHttpClientBuilder.writeTimeout(TIME_OUT, TimeUnit.SECONDS);
         okHttpClientBuilder.followRedirects(true);
-        okHttpClientBuilder.sslSocketFactory()
+        okHttpClientBuilder.sslSocketFactory(HttpsUtils.initSSLSocketFactory(),HttpsUtils.initTrustManangers());
+        mOkhttpclient = okHttpClientBuilder.build();
+    }
+
+    public static OkHttpClient getmOkhttpclient() {
+        return mOkhttpclient;
+    }
+
+    public static Call get(Request request, DisposeDataHandler handler) {
+        Call call =mOkhttpclient.newCall(request);
+        call.enqueue(new CommonJsonCallback(handler));
+        return call;
     }
 }
